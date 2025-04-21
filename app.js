@@ -4,16 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-// Configuración de middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuración del motor de plantillas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// Datos de ejemplo (simulando una base de datos)
 const tesisList = [
   { id: 1, titulo: 'Implementación de IA para mejora de procesos en PYMES', estudiante: 'Ana García', asesor: 'Dr. Juan Pérez', estado: 'En revisión', fecha_entrega: '15/05/2025', tipo: 'Tesis' },
   { id: 2, titulo: 'Desarrollo de aplicación móvil para monitoreo de especies en peligro', estudiante: 'Carlos Rodríguez', asesor: 'Dra. María Sánchez', estado: 'Aprobado', fecha_entrega: '10/04/2025', tipo: 'Tesis' }
@@ -38,7 +35,7 @@ const asesoresList = [
   { id: 4, nombre: 'Dra. Patricia Luna', email: 'patricia.luna@tecsup.edu.pe', especialidad: 'Blockchain y Seguridad' }
 ];
 
-// Rutas
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -56,7 +53,6 @@ app.get('/asesores', (req, res) => {
   res.render('asesores', { asesores: asesoresList });
 });
 
-// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor de Thesia ejecutándose en http://localhost:${port}`);
 });
