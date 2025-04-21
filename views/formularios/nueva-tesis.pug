@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8
+        .card.form-container.mb-4
+          .card-body
+            h1.text-center.mb-4 Registrar Nueva Tesis
+            
+            form(action='/tesis', method='GET')
+              .mb-3
+                label.form-label(for='titulo') Título de la Tesis
+                input.form-control#titulo(type='text', required)
+              
+              .mb-3
+                label.form-label(for='estudiante') Estudiante
+                select.form-select#estudiante(required)
+                  option(value='', selected, disabled) Seleccionar estudiante
+                  each estudiante in estudiantes
+                    option(value=estudiante.id)= estudiante.nombre
+              
+              .mb-3
+                label.form-label(for='asesor') Asesor
+                select.form-select#asesor(required)
+                  option(value='', selected, disabled) Seleccionar asesor
+                  each asesor in asesores
+                    option(value=asesor.id)= asesor.nombre
+              
+              .mb-3
+                label.form-label(for='descripcion') Descripción
+                textarea.form-control#descripcion(rows='4', required)
+              
+              .row
+                .col-md-6.mb-3
+                  label.form-label(for='fecha_inicio') Fecha de Inicio
+                  input.form-control#fecha_inicio(type='date', required)
+                
+                .col-md-6.mb-3
+                  label.form-label(for='fecha_fin') Fecha de Finalización Estimada
+                  input.form-control#fecha_fin(type='date', required)
+              
+              .mb-3
+                label.form-label(for='area_investigacion') Área de Investigación
+                select.form-select#area_investigacion(required)
+                  option(value='', selected, disabled) Seleccionar área
+                  option(value='ia') Inteligencia Artificial
+                  option(value='desarrollo_web') Desarrollo Web
+                  option(value='desarrollo_movil') Desarrollo Móvil
+                  option(value='seguridad') Seguridad Informática
+                  option(value='blockchain') Blockchain
+                  option(value='iot') Internet de las Cosas
+                  option(value='cloud') Cloud Computing
+              
+              .mb-4
+                label.form-label Documentos Iniciales
+                .input-group.mb-3
+                  input.form-control(type='file', id='propuesta')
+                  label.input-group-text(for='propuesta') Propuesta
+                .input-group.mb-3
+                  input.form-control(type='file', id='cronograma')
+                  label.input-group-text(for='cronograma') Cronograma
+              
+              .d-flex.justify-content-between
+                a.btn.btn-outline-secondary(href='/tesis') Cancelar
+                button.btn.btn-primary(type='submit') Registrar Tesis

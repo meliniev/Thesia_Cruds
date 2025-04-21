@@ -1,0 +1,256 @@
+extends layout
+
+block content
+  .container
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1 Gestión de Tesis y Pretesis
+      .d-flex.gap-2
+        button.btn.btn-primary(data-bs-toggle='modal', data-bs-target='#nuevaTesisModal')
+          i.fas.fa-plus-circle.me-2
+          | Nueva Tesis
+        button.btn.btn-success(data-bs-toggle='modal', data-bs-target='#nuevaPretesisModal')
+          i.fas.fa-plus-circle.me-2
+          | Nueva Pretesis
+    
+    .card.table-container
+      .card-body
+        // Pestañas para filtrar
+        ul.nav.nav-tabs.mb-3#myTab(role='tablist')
+          li.nav-item(role='presentation')
+            button.nav-link.active#todos-tab(data-bs-toggle='tab', data-bs-target='#todos', type='button', role='tab') Todos
+          li.nav-item(role='presentation')
+            button.nav-link#tesis-tab(data-bs-toggle='tab', data-bs-target='#tesis', type='button', role='tab') Tesis
+          li.nav-item(role='presentation')
+            button.nav-link#pretesis-tab(data-bs-toggle='tab', data-bs-target='#pretesis', type='button', role='tab') Pretesis
+        
+        // Contenido de las pestañas
+        .tab-content#myTabContent
+          .tab-pane.fade.show.active#todos(role='tabpanel')
+            .table-responsive
+              table.table.table-hover
+                thead
+                  tr
+                    th #
+                    th Tipo
+                    th Título
+                    th Estudiante
+                    th Asesor
+                    th Estado
+                    th Fecha Entrega
+                    th Acciones
+                tbody
+                  each proyecto, index in proyectos
+                    tr
+                      td= proyecto.id
+                      td
+                        if proyecto.tipo === 'Tesis'
+                          span.badge.bg-primary= proyecto.tipo
+                        else
+                          span.badge.bg-success= proyecto.tipo
+                      td= proyecto.titulo
+                      td= proyecto.estudiante
+                      td= proyecto.asesor
+                      td
+                        if proyecto.estado === 'Aprobado'
+                          span.badge.bg-success.status-badge= proyecto.estado
+                        else if proyecto.estado === 'En revisión' || proyecto.estado === 'En desarrollo' || proyecto.estado === 'Pendiente de revisión'
+                          span.badge.bg-warning.status-badge= proyecto.estado
+                        else if proyecto.estado === 'Rechazado'
+                          span.badge.bg-danger.status-badge= proyecto.estado
+                        else
+                          span.badge.bg-secondary.status-badge= proyecto.estado
+                      td= proyecto.fecha_entrega
+                      td
+                        .btn-group
+                          a.btn.btn-sm.btn-outline-primary(href='#', title='Ver detalles')
+                            i.fas.fa-eye
+                          a.btn.btn-sm.btn-outline-secondary(href='#', title='Editar')
+                            i.fas.fa-edit
+                          a.btn.btn-sm.btn-outline-success(href='#', title='Documentos')
+                            i.fas.fa-file-alt
+                          a.btn.btn-sm.btn-outline-info(href='#', title='Cronograma')
+                            i.fas.fa-calendar
+          
+          .tab-pane.fade#tesis(role='tabpanel')
+            .table-responsive
+              table.table.table-hover
+                thead
+                  tr
+                    th #
+                    th Título
+                    th Estudiante
+                    th Asesor
+                    th Estado
+                    th Fecha Entrega
+                    th Acciones
+                tbody
+                  each proyecto in proyectos
+                    if proyecto.tipo === 'Tesis'
+                      tr
+                        td= proyecto.id
+                        td= proyecto.titulo
+                        td= proyecto.estudiante
+                        td= proyecto.asesor
+                        td
+                          if proyecto.estado === 'Aprobado'
+                            span.badge.bg-success.status-badge= proyecto.estado
+                          else if proyecto.estado === 'En revisión'
+                            span.badge.bg-warning.status-badge= proyecto.estado
+                          else if proyecto.estado === 'Rechazado'
+                            span.badge.bg-danger.status-badge= proyecto.estado
+                          else
+                            span.badge.bg-secondary.status-badge= proyecto.estado
+                        td= proyecto.fecha_entrega
+                        td
+                          .btn-group
+                            a.btn.btn-sm.btn-outline-primary(href='#', title='Ver detalles')
+                              i.fas.fa-eye
+                            a.btn.btn-sm.btn-outline-secondary(href='#', title='Editar')
+                              i.fas.fa-edit
+                            a.btn.btn-sm.btn-outline-success(href='#', title='Documentos')
+                              i.fas.fa-file-alt
+                            a.btn.btn-sm.btn-outline-info(href='#', title='Cronograma')
+                              i.fas.fa-calendar
+          
+          .tab-pane.fade#pretesis(role='tabpanel')
+            .table-responsive
+              table.table.table-hover
+                thead
+                  tr
+                    th #
+                    th Título
+                    th Estudiante
+                    th Asesor
+                    th Estado
+                    th Fecha Entrega
+                    th Acciones
+                tbody
+                  each proyecto in proyectos
+                    if proyecto.tipo === 'Pretesis'
+                      tr
+                        td= proyecto.id
+                        td= proyecto.titulo
+                        td= proyecto.estudiante
+                        td= proyecto.asesor
+                        td
+                          if proyecto.estado === 'Aprobado'
+                            span.badge.bg-success.status-badge= proyecto.estado
+                          else if proyecto.estado === 'En desarrollo' || proyecto.estado === 'Pendiente de revisión'
+                            span.badge.bg-warning.status-badge= proyecto.estado
+                          else if proyecto.estado === 'Rechazado'
+                            span.badge.bg-danger.status-badge= proyecto.estado
+                          else
+                            span.badge.bg-secondary.status-badge= proyecto.estado
+                        td= proyecto.fecha_entrega
+                        td
+                          .btn-group
+                            a.btn.btn-sm.btn-outline-primary(href='#', title='Ver detalles')
+                              i.fas.fa-eye
+                            a.btn.btn-sm.btn-outline-secondary(href='#', title='Editar')
+                              i.fas.fa-edit
+                            a.btn.btn-sm.btn-outline-success(href='#', title='Documentos')
+                              i.fas.fa-file-alt
+                            a.btn.btn-sm.btn-outline-info(href='#', title='Cronograma')
+                              i.fas.fa-calendar
+    
+  // Modal para Nueva Tesis
+  #nuevaTesisModal.modal.fade(tabindex='-1')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title Registrar Nueva Tesis
+          button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+        .modal-body
+          form
+            .mb-3
+              label.form-label(for='titulo') Título de la Tesis
+              input.form-control#titulo(type='text', required)
+            
+            .row
+              .col-md-6.mb-3
+                label.form-label(for='estudiante') Estudiante
+                select.form-select#estudiante(required)
+                  option(value='', selected, disabled) Seleccionar estudiante
+                  option(value='1') Ana García
+                  option(value='2') Carlos Rodríguez
+                  option(value='3') Luis Mendoza
+                  option(value='4') Diana Torres
+              
+              .col-md-6.mb-3
+                label.form-label(for='asesor') Asesor
+                select.form-select#asesor(required)
+                  option(value='', selected, disabled) Seleccionar asesor
+                  option(value='1') Dr. Juan Pérez
+                  option(value='2') Dra. María Sánchez
+                  option(value='3') Dr. Roberto Gómez
+                  option(value='4') Dra. Patricia Luna
+            
+            .mb-3
+              label.form-label(for='descripcion') Descripción
+              textarea.form-control#descripcion(rows='3', required)
+            
+            .row
+              .col-md-6.mb-3
+                label.form-label(for='fecha_inicio') Fecha de Inicio
+                input.form-control#fecha_inicio(type='date', required)
+              
+              .col-md-6.mb-3
+                label.form-label(for='fecha_fin') Fecha de Finalización Estimada
+                input.form-control#fecha_fin(type='date', required)
+        
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancelar
+          button.btn.btn-primary(type='button') Guardar
+  
+  // Modal para Nueva Pretesis
+  #nuevaPretesisModal.modal.fade(tabindex='-1')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title Registrar Nueva Pretesis
+          button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+        .modal-body
+          form
+            .mb-3
+              label.form-label(for='tituloPretesis') Título de la Pretesis
+              input.form-control#tituloPretesis(type='text', required)
+            
+            .row
+              .col-md-6.mb-3
+                label.form-label(for='estudiantePretesis') Estudiante
+                select.form-select#estudiantePretesis(required)
+                  option(value='', selected, disabled) Seleccionar estudiante
+                  option(value='1') Ana García
+                  option(value='2') Carlos Rodríguez
+                  option(value='3') Luis Mendoza
+                  option(value='4') Diana Torres
+              
+              .col-md-6.mb-3
+                label.form-label(for='asesorPretesis') Asesor
+                select.form-select#asesorPretesis(required)
+                  option(value='', selected, disabled) Seleccionar asesor
+                  option(value='1') Dr. Juan Pérez
+                  option(value='2') Dra. María Sánchez
+                  option(value='3') Dr. Roberto Gómez
+                  option(value='4') Dra. Patricia Luna
+            
+            .mb-3
+              label.form-label(for='descripcionPretesis') Descripción del Problema
+              textarea.form-control#descripcionPretesis(rows='3', required)
+            
+            .mb-3
+              label.form-label(for='justificacion') Justificación
+              textarea.form-control#justificacion(rows='3', required)
+            
+            .row
+              .col-md-6.mb-3
+                label.form-label(for='fecha_inicioPretesis') Fecha de Inicio
+                input.form-control#fecha_inicioPretesis(type='date', required)
+              
+              .col-md-6.mb-3
+                label.form-label(for='fecha_finPretesis') Fecha de Finalización Estimada
+                input.form-control#fecha_finPretesis(type='date', required)
+        
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancelar
+          button.btn.btn-primary(type='button') Guardar

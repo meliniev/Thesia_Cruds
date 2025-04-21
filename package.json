@@ -1,0 +1,16 @@
+{
+    "name": "thesia",
+    "version": "1.0.0",
+    "description": "Sistema de Gestión y Seguimiento de Tesis y Pretesis - Thesia",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "keywords": [],
+    "dependencies": {
+        "express": "^5.1.0",
+        "pug": "^3.0.3"
+    }
+}

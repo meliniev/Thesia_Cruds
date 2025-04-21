@@ -1,0 +1,81 @@
+extends layout
+
+block content
+  .container
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1 Gestión de Estudiantes
+      button.btn.btn-primary(data-bs-toggle='modal', data-bs-target='#nuevoEstudianteModal')
+        i.fas.fa-user-plus.me-2
+        | Nuevo Estudiante
+    
+    .card.table-container
+      .card-body
+        .table-responsive
+          table.table.table-hover
+            thead
+              tr
+                th #
+                th Nombre
+                th Email
+                th Carrera
+                th Ciclo
+                th Acciones
+            tbody
+              each estudiante, index in estudiantes
+                tr
+                  td= estudiante.id
+                  td= estudiante.nombre
+                  td= estudiante.email
+                  td= estudiante.carrera
+                  td= estudiante.ciclo
+                  td
+                    .btn-group
+                      a.btn.btn-sm.btn-outline-primary(href='#', title='Ver detalles')
+                        i.fas.fa-eye
+                      a.btn.btn-sm.btn-outline-secondary(href='#', title='Editar')
+                        i.fas.fa-edit
+                      a.btn.btn-sm.btn-outline-info(href='#', title='Ver tesis')
+                        i.fas.fa-book
+    
+  // Modal para Nuevo Estudiante
+  #nuevoEstudianteModal.modal.fade(tabindex='-1')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title Registrar Nuevo Estudiante
+          button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+        .modal-body
+          form
+            .mb-3
+              label.form-label(for='nombre') Nombre Completo
+              input.form-control#nombre(type='text', required)
+            
+            .mb-3
+              label.form-label(for='email') Correo Electrónico
+              input.form-control#email(type='email', required)
+            
+            .mb-3
+              label.form-label(for='carrera') Carrera
+              select.form-select#carrera(required)
+                option(value='Diseño y Desarrollo de Software', selected) Diseño y Desarrollo de Software
+                option(value='Redes y Seguridad Informática') Redes y Seguridad Informática
+                option(value='Gestión de Sistemas de Información') Gestión de Sistemas de Información
+            
+            .mb-3
+              label.form-label(for='ciclo') Ciclo
+              select.form-select#ciclo(required)
+                option(value='', selected, disabled) Seleccionar ciclo
+                - for (let i = 1; i <= 10; i++)
+                  option(value=i)= i
+            
+            .mb-3
+              label.form-label(for='telefono') Teléfono
+              input.form-control#telefono(type='tel')
+            
+            .mb-3
+              label.form-label(for='dni') DNI
+              input.form-control#dni(type='text', maxlength='8')
+          
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancelar
+          button.btn.btn-primary(type='button') Guardar

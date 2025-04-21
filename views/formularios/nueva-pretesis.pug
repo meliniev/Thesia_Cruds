@@ -1,0 +1,87 @@
+extends ../layout
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8
+        .card.form-container.mb-4
+          .card-body
+            h1.text-center.mb-4 Registrar Nueva Pretesis
+            
+            form(action='/pretesis', method='GET')
+              .mb-3
+                label.form-label(for='titulo') Título de la Pretesis
+                input.form-control#titulo(type='text', required)
+              
+              .mb-3
+                label.form-label(for='estudiante') Estudiante
+                select.form-select#estudiante(required)
+                  option(value='', selected, disabled) Seleccionar estudiante
+                  each estudiante in estudiantes
+                    option(value=estudiante.id)= estudiante.nombre
+              
+              .mb-3
+                label.form-label(for='asesor') Asesor
+                select.form-select#asesor(required)
+                  option(value='', selected, disabled) Seleccionar asesor
+                  each asesor in asesores
+                    option(value=asesor.id)= asesor.nombre
+              
+              .mb-3
+                label.form-label(for='descripcion') Descripción del Problema
+                textarea.form-control#descripcion(rows='3', required)
+              
+              .mb-3
+                label.form-label(for='justificacion') Justificación
+                textarea.form-control#justificacion(rows='3', required)
+              
+              .mb-3
+                label.form-label(for='objetivos') Objetivos
+                textarea.form-control#objetivos(rows='3', required, placeholder='Escriba los objetivos generales y específicos')
+              
+              .row
+                .col-md-6.mb-3
+                  label.form-label(for='fecha_inicio') Fecha de Inicio
+                  input.form-control#fecha_inicio(type='date', required)
+                
+                .col-md-6.mb-3
+                  label.form-label(for='fecha_fin') Fecha de Finalización Estimada
+                  input.form-control#fecha_fin(type='date', required)
+              
+              .mb-3
+                label.form-label(for='tecnologias') Tecnologías a Utilizar
+                select.form-select#tecnologias(multiple, size='4')
+                  option(value='javascript') JavaScript
+                  option(value='python') Python
+                  option(value='java') Java
+                  option(value='react') React
+                  option(value='nodejs') Node.js
+                  option(value='angular') Angular
+                  option(value='vue') Vue.js
+                  option(value='django') Django
+                  option(value='flask') Flask
+                  option(value='spring') Spring Boot
+                  option(value='mongodb') MongoDB
+                  option(value='mysql') MySQL
+                  option(value='postgresql') PostgreSQL
+                  option(value='firebase') Firebase
+                  option(value='aws') AWS
+                  option(value='azure') Azure
+                  option(value='docker') Docker
+              
+              .mb-3
+                label.form-label(for='alcance') Alcance del Proyecto
+                textarea.form-control#alcance(rows='3', required)
+              
+              .mb-4
+                label.form-label Documentos Iniciales
+                .input-group.mb-3
+                  input.form-control(type='file', id='anteproyecto')
+                  label.input-group-text(for='anteproyecto') Anteproyecto
+                .input-group.mb-3
+                  input.form-control(type='file', id='cronograma')
+                  label.input-group-text(for='cronograma') Cronograma Tentativo
+              
+              .d-flex.justify-content-between
+                a.btn.btn-outline-secondary(href='/pretesis') Cancelar
+                button.btn.btn-primary(type='submit') Registrar Pretesis

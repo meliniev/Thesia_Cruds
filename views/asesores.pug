@@ -1,0 +1,103 @@
+extends layout
+
+block content
+  .container
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1 Gestión de Asesores
+      button.btn.btn-primary(data-bs-toggle='modal', data-bs-target='#nuevoAsesorModal')
+        i.fas.fa-user-tie.me-2
+        | Nuevo Asesor
+    
+    .card.table-container
+      .card-body
+        .table-responsive
+          table.table.table-hover
+            thead
+              tr
+                th #
+                th Nombre
+                th Email
+                th Especialidad
+                th Tesis Asignadas
+                th Acciones
+            tbody
+              each asesor, index in asesores
+                tr
+                  td= asesor.id
+                  td= asesor.nombre
+                  td= asesor.email
+                  td= asesor.especialidad
+                  td 
+                    span.badge.bg-info.rounded-pill 3
+                  td
+                    .btn-group
+                      a.btn.btn-sm.btn-outline-primary(href='#', title='Ver detalles')
+                        i.fas.fa-eye
+                      a.btn.btn-sm.btn-outline-secondary(href='#', title='Editar')
+                        i.fas.fa-edit
+                      a.btn.btn-sm.btn-outline-info(href='#', title='Ver tesis asignadas')
+                        i.fas.fa-tasks
+    
+  // Modal para Nuevo Asesor
+  #nuevoAsesorModal.modal.fade(tabindex='-1')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title Registrar Nuevo Asesor
+          button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+        .modal-body
+          form
+            .mb-3
+              label.form-label(for='nombreAsesor') Nombre Completo
+              input.form-control#nombreAsesor(type='text', required)
+            
+            .mb-3
+              label.form-label(for='emailAsesor') Correo Electrónico
+              input.form-control#emailAsesor(type='email', required)
+            
+            .mb-3
+              label.form-label(for='especialidad') Especialidad
+              select.form-select#especialidad(required)
+                option(value='', selected, disabled) Seleccionar especialidad
+                option(value='Inteligencia Artificial') Inteligencia Artificial
+                option(value='Desarrollo Móvil') Desarrollo Móvil
+                option(value='Desarrollo Web') Desarrollo Web
+                option(value='Bases de Datos') Bases de Datos
+                option(value='Seguridad Informática') Seguridad Informática
+                option(value='Visión por Computadora') Visión por Computadora
+                option(value='Blockchain y Seguridad') Blockchain y Seguridad
+                option(value='Cloud Computing') Cloud Computing
+            
+            .mb-3
+              label.form-label(for='grado') Grado Académico
+              select.form-select#grado(required)
+                option(value='', selected, disabled) Seleccionar grado
+                option(value='Magister') Magister
+                option(value='Doctor') Doctor
+                option(value='PhD') PhD
+            
+            .mb-3
+              label.form-label(for='descripcion') Descripción
+              textarea.form-control#descripcion(rows='3')
+            
+            .mb-3
+              label.form-label Disponibilidad para Asesorías
+              .form-check
+                input.form-check-input#dispLunes(type='checkbox')
+                label.form-check-label(for='dispLunes') Lunes
+              .form-check
+                input.form-check-input#dispMartes(type='checkbox')
+                label.form-check-label(for='dispMartes') Martes
+              .form-check
+                input.form-check-input#dispMiercoles(type='checkbox')
+                label.form-check-label(for='dispMiercoles') Miércoles
+              .form-check
+                input.form-check-input#dispJueves(type='checkbox')
+                label.form-check-label(for='dispJueves') Jueves
+              .form-check
+                input.form-check-input#dispViernes(type='checkbox')
+                label.form-check-label(for='dispViernes') Viernes
+          
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancelar
+          button.btn.btn-primary(type='button') Guardar
